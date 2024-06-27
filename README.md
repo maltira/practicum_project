@@ -1,16 +1,17 @@
-# practicum_project
+# Практическое задание
 
-A new Flutter project.
+Вариант 20
 
-## Getting Started
+## Описание
 
-This project is a starting point for a Flutter application.
+Разработать программу для работы с базой данных на любом известном вам языке программирования (Рекомендуемые C#, Python, JavaScript). Необходимообеспечить следующую функциональность:
 
-A few resources to get you started if this is your first Flutter project:
+1) ввод данных в таблицы (см. приложение с индивидуальным заданием);
+2) чтение данных из файлов (рекомендуется json, xml), (для каждой таблицы свой файл);
+3) запись данных в файлы (рекомендуется json, xml), (для каждой таблицы свой файл);
+4) вывод данных на экран (вместо вторичных ключей должна отображаться информация из родительской таблицы);
+5) добавление, изменение, удаление данных;
+6) поиск информации.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+    Разработать интерактивное меню (рекомендуется C# Windows Forms, Python Tkinter, JavaScript HTML или любой другой графический интерфейс) позволяющее пользователю выбрать функцию работы с базой данных. Диалоговое меню должно обязательно содержать пункты, указанные выше.
+    Программа должна корректно работать с любыми исходными данными (реализовать проверку вводимых пользователем данных). Типы полей в базе данных должны соответствовать назначению поля, например, тип поля «Дата договора» - структура дата/время, тип поля «Серия паспорта» - число и т.д.
