@@ -1,8 +1,12 @@
+import 'dart:async';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:postgres/legacy.dart';
+import 'package:postgres/postgres.dart';
+
 
 class TitlePage extends StatefulWidget {
   const TitlePage({super.key});
@@ -99,6 +103,9 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
               borderRadius: BorderRadius.circular(20),
               onTap: () async {
                 isTap ? _controller.reverse() : _controller.forward();
+                // При нажатии должны получить данные из БД в виде списка и передать их в новый роут
+                print("Conntection...");
+                await requestPostgres();
               },
               child: AnimatedBuilder(
                 animation: _controller,
@@ -134,6 +141,17 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
                 },
               ),
             ),
+            Spacer(flex: 1,),
+            Text(
+                isTap ? "Ожидание ответа от БД..." : "Нажмите, чтобы продолжить",
+                style: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white.withOpacity(0.5),
+                        fontWeight: FontWeight.normal
+                    )
+                )
+            ),
             Spacer(flex: 6,),
             Text(
                 "Откройте свой потенциал вместе с Эврика Банком.",
@@ -150,5 +168,20 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
         ),
       ),
     );
+  }
+}
+
+
+Future requestPostgres() async {
+  try {
+    final conn = await Connection.open(Endpoint(
+        host: 'localhost',
+        database: 'postgres',
+        username: 'postgres',
+        password: 'xxxxxxx',
+    ));
+    Get.toNamed('/creditTable');
+  } catch (e) {
+    print("error: ${e.toString()}");
   }
 }
