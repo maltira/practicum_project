@@ -1,31 +1,21 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:postgres/postgres.dart';
 import 'package:practicum_project/modules/custom_drawer.dart';
 
-
-class CreditTablePage extends StatefulWidget {
-  const CreditTablePage({super.key});
+class ClientPage extends StatefulWidget {
+  const ClientPage({super.key});
 
   @override
-  State<CreditTablePage> createState() => _CreditTablePage();
+  State<ClientPage> createState() => _ClientPageState();
 }
 
-class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderStateMixin{
-  int selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
-
+class _ClientPageState extends State<ClientPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black54,
       body: Container(
         decoration: BoxDecoration(
             image: DecorationImage(
@@ -49,7 +39,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                     SvgPicture.asset('assets/icon/menu.svg', color: Colors.white, width: 32, height: 24,),
                     SizedBox(width: 24,),
                     Text(
-                        "Таблица кредитов",
+                        "Клиенты",
                         style: GoogleFonts.montserrat(
                             textStyle: TextStyle(
                                 fontSize: 36,
@@ -65,7 +55,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
           ],
         ),
       ),
-      drawer: CustomDrawer(0)
+      drawer: CustomDrawer(2),
     );
   }
 }

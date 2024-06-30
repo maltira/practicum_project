@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:postgres/legacy.dart';
 import 'package:postgres/postgres.dart';
 
+bool ConnectionStatus = true;
+String WarningMessage = "";
 
 class TitlePage extends StatefulWidget {
   const TitlePage({super.key});
@@ -44,6 +46,7 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
         setState(() {
           isTap = true;
         });
+
       if (status == AnimationStatus.dismissed)
         setState(() {
           isTap = false;
@@ -52,8 +55,8 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
   }
   @override
   void dispose() {
-    super.dispose();
     _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -104,7 +107,6 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
               onTap: () async {
                 isTap ? _controller.reverse() : _controller.forward();
                 // При нажатии должны получить данные из БД в виде списка и передать их в новый роут
-                print("Conntection...");
                 await requestPostgres();
               },
               child: AnimatedBuilder(
@@ -143,7 +145,7 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
             ),
             Spacer(flex: 1,),
             Text(
-                isTap ? "Ожидание ответа от БД..." : "Нажмите, чтобы продолжить",
+                isTap ?  (ConnectionStatus==false ? WarningMessage : "Ожидание ответа от БД...") : "Нажмите, чтобы продолжить",
                 style: GoogleFonts.montserrat(
                     textStyle: TextStyle(
                         fontSize: 16,
@@ -174,14 +176,21 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
 
 Future requestPostgres() async {
   try {
+    final settings = ConnectionSettings(
+        sslMode: SslMode.disable,
+        connectTimeout: Duration(seconds: 10),
+    );
     final conn = await Connection.open(Endpoint(
         host: 'localhost',
         database: 'postgres',
         username: 'postgres',
-        password: 'xxxxxxx',
-    ));
-    Get.toNamed('/creditTable');
+        password: '12341234',
+    ), settings: settings);
+    Get.offNamed('/creditTable');
+    ConnectionStatus=true;
   } catch (e) {
     print("error: ${e.toString()}");
+    ConnectionStatus=false;
+    WarningMessage = e.toString();
   }
 }
