@@ -13,6 +13,7 @@ void main() {
 
       initialRoute: '/',
       getPages: [
+        //GetPage(name: '/', page: () => TitlePage()),
         GetPage(
             name: '/',
             page: () => CreditTablePage(),
@@ -31,11 +32,6 @@ void main() {
             transition: Transition.fadeIn,
             transitionDuration: Duration(milliseconds: 50)
         ),
-        // GetPage(
-        //    name: '/creditTable',
-        //    page: () => CreditTablePage(),
-        //    transition: Transition.fade,
-        //    transitionDuration: Duration(milliseconds: 50)),
       ]
   ));
 }

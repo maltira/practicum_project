@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:postgres/postgres.dart';
 import 'package:practicum_project/modules/custom_drawer.dart';
 
+import '../modules/database.dart';
+
 
 class CreditTablePage extends StatefulWidget {
   const CreditTablePage({super.key});
@@ -21,9 +23,19 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
     });
   }
 
+  Future connect() async{
+    await requestPostgres();
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    connect();
+  }
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       backgroundColor: Colors.black54,
       body: Container(
@@ -62,10 +74,18 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                 ),
               ),
             ),
+            InkWell(
+              onTap: () async {
+                  for (int i = 1; i<=countCredits; i++)
+                      await PostgresSELECT(table: 'credit_data', index: i);
+              },
+              child: Text('Click'),
+            )
           ],
         ),
       ),
-      drawer: CustomDrawer(0)
+      drawer: CustomDrawer(0, context)
     );
   }
 }
+

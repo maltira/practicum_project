@@ -55,7 +55,7 @@ class _CreditTypePageState extends State<CreditTypePage> {
           ],
         ),
       ),
-      drawer: CustomDrawer(1),
+      drawer: CustomDrawer(1, context),
     );
   }
 }

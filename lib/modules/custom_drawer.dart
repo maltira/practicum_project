@@ -5,7 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
-Widget CustomDrawer(int index) {
+Widget CustomDrawer(int index, BuildContext context) {
   return Drawer(
     width: 490,
     child: Container(
@@ -35,6 +35,7 @@ Widget CustomDrawer(int index) {
             ),
             selected: index == 0,
             onTap: () {
+              Navigator.pop(context);
               Get.offNamed('/');
             },
           ),
@@ -53,6 +54,7 @@ Widget CustomDrawer(int index) {
             ),
             selected: index == 1,
             onTap: () {
+              Navigator.pop(context);
               Get.offNamed('/creditType');
             },
           ),
@@ -71,6 +73,7 @@ Widget CustomDrawer(int index) {
             ),
             selected: index == 2,
             onTap: () {
+              Navigator.pop(context);
               Get.offNamed('/client');
             },
           ),

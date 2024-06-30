@@ -55,7 +55,7 @@ class _ClientPageState extends State<ClientPage> {
           ],
         ),
       ),
-      drawer: CustomDrawer(2),
+      drawer: CustomDrawer(2, context),
     );
   }
 }

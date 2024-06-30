@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:postgres/legacy.dart';
 import 'package:postgres/postgres.dart';
 
+import '../modules/database.dart';
+
 bool ConnectionStatus = true;
 String WarningMessage = "";
 
@@ -174,23 +176,3 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
 }
 
 
-Future requestPostgres() async {
-  try {
-    final settings = ConnectionSettings(
-        sslMode: SslMode.disable,
-        connectTimeout: Duration(seconds: 10),
-    );
-    final conn = await Connection.open(Endpoint(
-        host: 'localhost',
-        database: 'postgres',
-        username: 'postgres',
-        password: '12341234',
-    ), settings: settings);
-    Get.offNamed('/creditTable');
-    ConnectionStatus=true;
-  } catch (e) {
-    print("error: ${e.toString()}");
-    ConnectionStatus=false;
-    WarningMessage = e.toString();
-  }
-}
