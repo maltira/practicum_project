@@ -45,6 +45,8 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(height: 80,),
+
+            // drawer
             Builder(
               builder: (context) => InkWell(
                 onTap: (){
@@ -71,6 +73,8 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
               ),
             ),
             SizedBox(height: 40,),
+
+            // Таблица
             Row(
               children: [
                 Spacer(flex: 22,),
@@ -192,7 +196,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(8),
                                     child: SvgPicture.asset('assets/icon/pen.svg'),
-                                    onTap: () => Get.toNamed('/edit', arguments: [index+1, elem[index][0], elem[index][1]]),
+                                    onTap: () => Get.toNamed('/editcredit', arguments: [index+1, elem[index][0], elem[index][1]]),
                                   ),
                                 ),
                                 Spacer(flex: 4,),
@@ -206,6 +210,8 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                 )
             ),
             SizedBox(height: 100),
+
+            // Кнопки
             InkWell(
               onTap: (){Get.toNamed('/newcredit');},
               child: Container(

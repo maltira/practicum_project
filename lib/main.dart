@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:practicum_project/modules/waiting.dart';
 import 'package:practicum_project/pages/add_credit.dart';
+import 'package:practicum_project/pages/add_type.dart';
 import 'package:practicum_project/pages/client_data.dart';
 import 'package:practicum_project/pages/credit_table.dart';
 import 'package:practicum_project/pages/credit_type.dart';
 import 'package:practicum_project/pages/edit_credit_page.dart';
+import 'package:practicum_project/pages/edit_type_page.dart';
 import 'package:practicum_project/pages/title.dart';
 
 void main() async{
@@ -48,14 +50,26 @@ void main() async{
             transitionDuration: Duration(milliseconds: 50)
         ),
         GetPage(
-            name: '/edit',
+            name: '/editcredit',
             page: () => EditELement(),
+            transition: Transition.fadeIn,
+            transitionDuration: Duration(milliseconds: 50)
+        ),
+        GetPage(
+            name: '/edittype',
+            page: () => EditTypePage(),
             transition: Transition.fadeIn,
             transitionDuration: Duration(milliseconds: 50)
         ),
         GetPage(
             name: '/newcredit',
             page: () => AddNewCredit(),
+            transition: Transition.fadeIn,
+            transitionDuration: Duration(milliseconds: 50)
+        ),
+        GetPage(
+            name: '/newtype',
+            page: () => AddNewType(),
             transition: Transition.fadeIn,
             transitionDuration: Duration(milliseconds: 50)
         ),

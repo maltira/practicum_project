@@ -312,7 +312,7 @@ class _EditELementState extends State<EditELement> {
 
                     if (new_sum == null) new_sum = list_arg[1];
                   });
-                  await PostgresCreditUPDATE(table: 'credit_data', index: list_arg[0], new_sum: int.parse(new_sum!), new_date: new_date!);
+                  await PostgresCreditUPDATE(index: list_arg[0], new_sum: int.parse(new_sum!), new_date: new_date!);
                   Get.back();
                 }
               },
