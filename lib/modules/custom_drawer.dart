@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'database.dart';
+
 
 Widget CustomDrawer(int index, BuildContext context) {
   return Drawer(
@@ -34,9 +36,11 @@ Widget CustomDrawer(int index, BuildContext context) {
               textAlign: TextAlign.center,
             ),
             selected: index == 0,
-            onTap: () {
+            onTap: () async{
               Navigator.pop(context);
-              Get.offNamed('/');
+              Get.toNamed('/wait');
+              var arg = await PostgresSELECT(table: 'credit_data');
+              Get.offNamed('/credit', arguments: arg);
             },
           ),
           Spacer(flex: 1,),
@@ -53,9 +57,9 @@ Widget CustomDrawer(int index, BuildContext context) {
               textAlign: TextAlign.center,
             ),
             selected: index == 1,
-            onTap: () {
+            onTap: () async{
               Navigator.pop(context);
-              Get.offNamed('/creditType');
+              await Get.offNamed('/creditType', );
             },
           ),
           Spacer(flex: 1,),
@@ -72,9 +76,9 @@ Widget CustomDrawer(int index, BuildContext context) {
               textAlign: TextAlign.center,
             ),
             selected: index == 2,
-            onTap: () {
+            onTap: () async {
               Navigator.pop(context);
-              Get.offNamed('/client');
+              await Get.offNamed('/client');
             },
           ),
           Spacer(flex: 5,),

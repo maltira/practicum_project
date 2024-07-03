@@ -1,13 +1,11 @@
-
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:postgres/postgres.dart';
 
 import '../pages/title.dart';
 
-
 var conn;
 var countCredits, countClients, countTypes;
+Map list = {'credit_data': countCredits, 'user_data': countClients, 'type': countTypes};
+
 Future requestPostgres() async {
   try {
     final settings = ConnectionSettings(
@@ -24,7 +22,10 @@ Future requestPostgres() async {
     countClients = await conn.execute(Sql.named('SELECT COUNT(*) FROM public.user_data')); countClients = countClients[0][0];
     countTypes = await conn.execute(Sql.named('SELECT COUNT(*) FROM public.type')); countTypes = countTypes[0][0];
 
-    //Get.offNamed('/');
+    list['credit_data'] = countCredits;
+    list['user_data'] = countClients;
+    list['type'] = countTypes;
+
     ConnectionStatus=true;
   } catch (e) {
     print("error: ${e.toString()}");
@@ -33,11 +34,26 @@ Future requestPostgres() async {
   }
 }
 
-// index:    0 - sum, 1 - date, 2 - user_id, 3 - type_id, 4 - operation id
-Future PostgresSELECT({required String table, required int index}) async {
-  Map<String, int> list = {'sum': 0, 'date': 1, 'user_id': 2, 'type_id': 3, 'operation_id': 4};
 
-  final result = await conn.execute(Sql.named('SELECT * FROM public.$table WHERE id=$index'));
-  List all = [result[0][0].toString(), result[0][1], result[0][2].toString(), result[0][3].toString()];
-  print(all);
+Future PostgresSELECT({required String table}) async {
+  List allElements = [];
+  for (int i = 1; i<=list[table]; i++) {
+    final result = await conn.execute(Sql.named('SELECT * FROM public.$table WHERE id=$i'));
+    allElements.add(result[0]);
+  }
+  return allElements;
+}
+
+Future PostgresDELETE({required String table, required int index}) async {
+  int i = index;
+  await conn.execute('DELETE FROM public.$table WHERE id=$index');
+
+  while (i < list[table]) {
+    await conn.execute('UPDATE public.$table SET summ=summ, date=date, user_id=user_id, type_id=type_id, id=$i WHERE id=${i+1}');
+    i++;
+  }
+}
+
+Future PostgresCreditUPDATE({required String table, required int index, required int new_sum, required String new_date}) async{
+  await conn.execute('UPDATE public.$table SET summ=$new_sum, date=\'$new_date\' WHERE id=$index');
 }

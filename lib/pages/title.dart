@@ -64,7 +64,7 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black54,
+      backgroundColor: Colors.transparent,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -109,7 +109,10 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
               onTap: () async {
                 isTap ? _controller.reverse() : _controller.forward();
                 // При нажатии должны получить данные из БД в виде списка и передать их в новый роут
+                Get.toNamed('/wait');
                 await requestPostgres();
+                List elements = await PostgresSELECT(table: 'credit_data');
+                Get.offNamed('/credit', arguments: elements);
               },
               child: AnimatedBuilder(
                 animation: _controller,

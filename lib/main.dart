@@ -1,21 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:practicum_project/modules/waiting.dart';
 import 'package:practicum_project/pages/client_data.dart';
 import 'package:practicum_project/pages/credit_table.dart';
 import 'package:practicum_project/pages/credit_type.dart';
+import 'package:practicum_project/pages/edit_credit_page.dart';
 import 'package:practicum_project/pages/title.dart';
 
-
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   runApp(GetMaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          scrollbarTheme: ScrollbarThemeData(
+            thumbVisibility: MaterialStateProperty.all(true),
+            thickness: MaterialStateProperty.all(4),
+            thumbColor: MaterialStateProperty.all(Colors.white),
+          )
+      ),
 
       initialRoute: '/',
       getPages: [
-        //GetPage(name: '/', page: () => TitlePage()),
+        GetPage(name: '/', page: () => TitlePage()),
         GetPage(
-            name: '/',
+            name: '/credit',
             page: () => CreditTablePage(),
             transition: Transition.fadeIn,
             transitionDuration: Duration(milliseconds: 50)
@@ -29,6 +37,18 @@ void main() {
         GetPage(
             name: '/creditType',
             page: () => CreditTypePage(),
+            transition: Transition.fadeIn,
+            transitionDuration: Duration(milliseconds: 50)
+        ),
+        GetPage(
+            name: '/wait',
+            page: () => WaitingBetweenPages(),
+            transition: Transition.fadeIn,
+            transitionDuration: Duration(milliseconds: 50)
+        ),
+        GetPage(
+            name: '/edit',
+            page: () => EditELement(),
             transition: Transition.fadeIn,
             transitionDuration: Duration(milliseconds: 50)
         ),
