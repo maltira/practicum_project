@@ -207,7 +207,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
             ),
             SizedBox(height: 100),
             InkWell(
-              onTap: (){},
+              onTap: (){Get.toNamed('/newcredit');},
               child: Container(
                 width: 160,
                 height: 60,

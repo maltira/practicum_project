@@ -42,6 +42,7 @@ class _EditELementState extends State<EditELement> {
             Spacer(),
             Column(
               children: [
+                // Сумма
                 Text(
                   'Укажите сумму (тек. ${list_arg[1]})',
                   textAlign: TextAlign.center,
@@ -108,13 +109,15 @@ class _EditELementState extends State<EditELement> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       onChanged: (value) {
                         setState(() {
-                          if (value != '') new_sum = value;
+                          if (value != '' && value[0] != '0') new_sum = value;
                           else new_sum = null;
                         });
                       },
                     )
                 ),
                 SizedBox(height: 20),
+
+                // Дата
                 Text(
                   'Укажите дату (тек. ${list_arg[2]})',
                   textAlign: TextAlign.center,
