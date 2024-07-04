@@ -36,11 +36,7 @@ Future requestPostgres() async {
 
 
 Future PostgresSELECT({required String table}) async {
-  List allElements = [];
-  for (int i = 1; i<=list[table]; i++) {
-    final result = await conn.execute(Sql.named('SELECT * FROM public.$table WHERE id=$i'));
-    allElements.add(result[0]);
-  }
+  List allElements = await conn.execute(Sql.named('SELECT * FROM public.$table'));
   return allElements;
 }
 
@@ -48,28 +44,43 @@ Future PostgresDELETE({required String table, required int index}) async {
   int i = index;
   await conn.execute('DELETE FROM public.$table WHERE id=$index');
 
-  while (i < list[table]) {
-    if (table == 'credit_data')
+  if (table == 'credit_data')
+    while (i < list[table]) {
       await conn.execute('UPDATE public.$table SET id=$i WHERE id=${i+1}');
-    else if (table == 'type')
-      await conn.execute('UPDATE public.$table SET id=$i WHERE id=${i+1}');
-    i++;
-  }
+      i++;
+    }
 }
 
 Future PostgresCreditUPDATE({ required int index, required int new_sum, required String new_date}) async{
+  print(new_date);
+  print(index);
   await conn.execute('UPDATE public.credit_data SET summ=$new_sum, date=\'$new_date\' WHERE id=$index');
 }
 Future PostgresTypeUPDATE({required int index, required String name, required String usl, required int rate, required int period}) async{
   await conn.execute('UPDATE public.type SET name=\'$name\', conditions=\'$usl\', rate=$rate, period=$period WHERE id=$index');
 }
-Future PostgresCheck({required int type_index}) async{
+Future PostgresClientUPDATE({required int index, required String name, required String own, required String address, required String phone, required String person}) async{
+  await conn.execute('UPDATE public.user_data SET company_name=\'$name\', type_of_ownership=\'$own\', address=\'$address\', phone_number=\'$phone\', contact_person=\'$person\' WHERE id=$index');
+}
+Future PostgresCheck({required String table, required int type_index}) async{
   List arg = await PostgresSELECT(table: 'credit_data');
+  int ind = (table == 'type') ? 3 : 2;
   bool flag = false;
   for (int i = 0; i<countCredits; i++) {
-
-    if (arg[i][3] == type_index)
+    print('${arg[i][ind]} $type_index');
+    if (arg[i][ind] == type_index)
       flag = true;
   }
   return flag;
+}
+
+Future MaxID({required String table}) async{
+  List arg = await PostgresSELECT(table: table);
+  int maxID = 0;
+  for (int i = 0; i<list[table]; i++) {
+    if (table == 'type') maxID = (maxID < arg[i][4]) ? arg[i][4] : maxID;
+    else if (table == 'user_data') maxID = (maxID < arg[i][5]) ? arg[i][5] : maxID;
+    else if (table == 'credit_data') maxID = (maxID < arg[i][4]) ? arg[i][4] : maxID;
+  }
+  return maxID;
 }

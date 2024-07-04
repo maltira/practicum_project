@@ -120,7 +120,7 @@ class _AddNewCreditState extends State<AddNewCredit> {
                           if (value != '') {
                             new_name = value;
                           }
-                          else new_date = null;
+                          else new_name = null;
                         });
                       },
                     )
@@ -259,6 +259,8 @@ class _AddNewCreditState extends State<AddNewCredit> {
                               fontSize: 20
                           )
                       ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       onChanged: (value) {
                         setState(() {
                           if (value != '') {
@@ -410,7 +412,7 @@ class _AddNewCreditState extends State<AddNewCredit> {
                             });
                           },
                           dropdownMenuEntries: allTypeCredits.map((item) {
-                            return DropdownMenuEntry(value: item, label: '$item - ${perm[int.parse(item)-1][0]}');
+                            return DropdownMenuEntry(value: item, label: item);
                           }).toList()
                         ),
                       ),
@@ -491,7 +493,11 @@ class _AddNewCreditState extends State<AddNewCredit> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       onChanged: (value) {
                         setState(() {
-                          if (value != '' && (int.parse(value) > 0) && (int.parse(value) < 32)) new_day = value;
+                          if (value != '' && int.parse(value) < 32 && value[0] != '0') {
+                            if (int.parse(value) > 9) new_day = value;
+                            else new_day = '0$new_day';
+                          }
+
                           else new_day = null;
                         });
                       },
@@ -542,8 +548,8 @@ class _AddNewCreditState extends State<AddNewCredit> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       onChanged: (value) {
                         setState(() {
-                          if (value != '' && value[0] != '0')
-                            if (int.parse(value) > 9 && int.parse(value) < 13) new_month = value;
+                          if (value != '' && value[0] != '0' && int.parse(value) < 13)
+                            if (int.parse(value) > 9) new_month = value;
                             else new_month = '0$value';
                           else new_month = null;
                         });
@@ -560,7 +566,7 @@ class _AddNewCreditState extends State<AddNewCredit> {
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     hintText: 'Год',
-                    helperText: 'От 2000 до 2030',
+                    helperText: 'От 1980 до 2030',
                     helperMaxLines: 2,
                     helperStyle: GoogleFonts.montserrat(
                       textStyle: TextStyle(
@@ -597,7 +603,7 @@ class _AddNewCreditState extends State<AddNewCredit> {
                   inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   onChanged: (value) {
                     setState(() {
-                      if (value != '' && (int.parse(value) > 0) && (int.parse(value) < 2031)) new_year = value;
+                      if (value != '' && (int.parse(value) >= 1980) && (int.parse(value) < 2031)) new_year = value;
                       else new_year = null;
                     });
                   },
@@ -612,8 +618,10 @@ class _AddNewCreditState extends State<AddNewCredit> {
                   setState(() {
                     new_date = "$new_day.$new_month.$new_year";
                   });
-                  await conn.execute('INSERT INTO public.user_data(company_name, type_of_ownership, address, phone_number, contact_person, id) VALUES (\'$new_name\', \'$new_own\', \'$new_address\', \'$new_phone\', \'$new_person\', ${countClients+1})');
-                  await conn.execute('INSERT INTO public.credit_data(summ, date, user_id, type_id, id) VALUES ($new_sum, \'$new_date\', ${countClients+1}, ${int.parse(typeCredit)}, ${countCredits+1})');
+                  print(await MaxID(table: 'user_data') + 1);
+                  print(countCredits);
+                  await conn.execute('INSERT INTO public.user_data(company_name, type_of_ownership, address, phone_number, contact_person, id) VALUES (\'$new_name\', \'$new_own\', \'$new_address\', \'$new_phone\', \'$new_person\', ${await MaxID(table: 'user_data') + 1})');
+                  await conn.execute('INSERT INTO public.credit_data(summ, date, user_id, type_id, id) VALUES ($new_sum, \'$new_date\', ${await MaxID(table: 'user_data')+1}, ${int.parse(typeCredit)}, ${countCredits+1})');
                   Get.back();
                 }
               },

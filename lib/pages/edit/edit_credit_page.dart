@@ -18,6 +18,7 @@ class _EditELementState extends State<EditELement> {
 
   @override
   Widget build(BuildContext context) {
+    bool DateNotNull = new_day!=null && new_month!=null && new_year!=null;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -55,7 +56,7 @@ class _EditELementState extends State<EditELement> {
                   ),
                 ),
                 Text(
-                  'Обязательно указать или же не указывать\nничего (останется текущая)',
+                  'Если не указать, то останется текущая',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.montserrat(
                       textStyle: TextStyle(
@@ -187,7 +188,10 @@ class _EditELementState extends State<EditELement> {
                             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                             onChanged: (value) {
                               setState(() {
-                                if (value != '' && (int.parse(value) > 0) && (int.parse(value) < 32)) new_day = value;
+                                if (value != '' && value[0] != '0' && int.parse(value) < 32) {
+                                  if (int.parse(value) > 9) new_day = value;
+                                  else new_day = '0$value';
+                                }
                                 else new_day = null;
                               });
                             },
@@ -238,8 +242,8 @@ class _EditELementState extends State<EditELement> {
                           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           onChanged: (value) {
                             setState(() {
-                              if (value != '' && value[0] != '0')
-                                if (int.parse(value) > 9 && int.parse(value) < 13) new_month = value;
+                              if (value != '' && value[0] != '0' && int.parse(value) < 13)
+                                if (int.parse(value) > 9) new_month = value;
                                 else new_month = '0$value';
                               else new_month = null;
                             });
@@ -256,7 +260,7 @@ class _EditELementState extends State<EditELement> {
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         hintText: 'Год',
-                        helperText: 'От 2000 до 2030',
+                        helperText: 'От 1980 до 2030',
                         helperMaxLines: 2,
                         helperStyle: GoogleFonts.montserrat(
                           textStyle: TextStyle(
@@ -293,7 +297,7 @@ class _EditELementState extends State<EditELement> {
                       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       onChanged: (value) {
                         setState(() {
-                          if (value != '' && (int.parse(value) > 0) && (int.parse(value) < 2031)) new_year = value;
+                          if (value != '' && (int.parse(value) >= 1980) && (int.parse(value) < 2031)) new_year = value;
                           else new_year = null;
                         });
                       },
@@ -304,13 +308,12 @@ class _EditELementState extends State<EditELement> {
             Spacer(),
             InkWell(
               onTap: () async {
-                if ((new_day != null && new_month != null && new_year != null) || (new_sum != null && (new_day != null && new_month != null && new_year != null)) || (new_sum != null && (new_day == null && new_month == null && new_year == null))) {
+                if (DateNotNull || new_sum != null) {
                   setState(() {
-                    if ((new_day != null && new_month != null && new_year != null))
-                      new_date = "$new_day.$new_month.$new_year";
+                    new_sum = (new_sum == null) ? list_arg[1] : new_sum;
+                    if (DateNotNull)
+                      new_date = '$new_day.$new_month.$new_year';
                     else new_date = list_arg[2];
-
-                    if (new_sum == null) new_sum = list_arg[1];
                   });
                   await PostgresCreditUPDATE(index: list_arg[0], new_sum: int.parse(new_sum!), new_date: new_date!);
                   Get.back();
@@ -321,7 +324,7 @@ class _EditELementState extends State<EditELement> {
                 width: 300,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                  color: ((new_day != null && new_month != null && new_year != null) || (new_sum != null && (new_day != null && new_month != null && new_year != null)) || (new_sum != null && (new_day == null && new_month == null && new_year == null))) ? Colors.white : Colors.white.withOpacity(0.5),
+                  color: (DateNotNull || new_sum != null) ? Colors.white : Colors.white.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(20)
                 ),
                 child: Text(

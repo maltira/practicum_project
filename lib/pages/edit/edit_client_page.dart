@@ -1,25 +1,25 @@
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../modules/database.dart';
+import '../../modules/database.dart';
 
-class AddNewType extends StatefulWidget {
-  const AddNewType({super.key});
+class EditClientPage extends StatefulWidget {
+  const EditClientPage({super.key});
 
   @override
-  State<AddNewType> createState() => _AddNewTypeState();
+  State<EditClientPage> createState() => _EditClientPageState();
 }
 
-class _AddNewTypeState extends State<AddNewType> {
-
-  String? new_name, new_usl, new_rate, new_period;
+class _EditClientPageState extends State<EditClientPage> {
+  List list_arg = Get.arguments;
+  String? new_name, new_own, new_address, new_phone, new_person;
 
   @override
   Widget build(BuildContext context) {
-    bool allNotNull = new_name != null && new_usl != null && new_rate != null && new_period != null;
+    bool NotNull = new_name!=null || new_own != null || new_address!=null || new_phone!=null || new_person!=null;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -32,7 +32,7 @@ class _AddNewTypeState extends State<AddNewType> {
           children: [
             SizedBox(height: 80),
             Text(
-                "Добавить новый тип",
+                "Редактировать данные клиента №${list_arg[0]}",
                 style: GoogleFonts.montserrat(
                     textStyle: TextStyle(
                         fontSize: 36,
@@ -41,9 +41,19 @@ class _AddNewTypeState extends State<AddNewType> {
                     )
                 )
             ),
+            Text(
+              'Неизменённые элементы останутся прежними',
+              textAlign: TextAlign.center,
+              style: GoogleFonts.montserrat(
+                  textStyle: TextStyle(
+                      color: Colors.white.withOpacity(0.5),
+                      fontSize: 16
+                  )
+              ),
+            ),
             Spacer(),
 
-            // название и условия
+            // название и собственность
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -92,7 +102,7 @@ class _AddNewTypeState extends State<AddNewType> {
                     child: TextField(
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
-                        hintText: 'Условия',
+                        hintText: 'Тип собственности',
                         hintStyle: GoogleFonts.montserrat(
                             textStyle: TextStyle(
                                 color: Colors.white.withOpacity(0.4),
@@ -120,9 +130,10 @@ class _AddNewTypeState extends State<AddNewType> {
                       ),
                       onChanged: (value) {
                         setState(() {
-                          if (value != '' )
-                            new_usl = value;
-                          else new_usl = null;
+                          if (value != '') {
+                            new_own = value;
+                          }
+                          else new_own= null;
                         });
                       },
                     )
@@ -131,7 +142,7 @@ class _AddNewTypeState extends State<AddNewType> {
             ),
             SizedBox(height: 10),
 
-            // ставка и срок
+            // адрес и телефон
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -140,7 +151,7 @@ class _AddNewTypeState extends State<AddNewType> {
                     child: TextField(
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
-                        hintText: 'Ставка',
+                        hintText: 'Адрес',
                         hintStyle: GoogleFonts.montserrat(
                             textStyle: TextStyle(
                                 color: Colors.white.withOpacity(0.4),
@@ -166,12 +177,12 @@ class _AddNewTypeState extends State<AddNewType> {
                               fontSize: 24
                           )
                       ),
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       onChanged: (value) {
                         setState(() {
-                          if (value != '') new_rate = value;
-                          else new_rate = null;
+                          if (value != '') {
+                            new_address = value;
+                          }
+                          else new_address = null;
                         });
                       },
                     )
@@ -182,7 +193,7 @@ class _AddNewTypeState extends State<AddNewType> {
                     child: TextField(
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
-                        hintText: 'Срок',
+                        hintText: 'Телефон',
                         hintStyle: GoogleFonts.montserrat(
                             textStyle: TextStyle(
                                 color: Colors.white.withOpacity(0.4),
@@ -208,44 +219,93 @@ class _AddNewTypeState extends State<AddNewType> {
                               fontSize: 24
                           )
                       ),
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                       onChanged: (value) {
                         setState(() {
-                          if (value != '')
-                            new_period = value;
-                          else new_period = null;
+                          if (value != '') {
+                            new_phone = value;
+                          }
+                          else new_phone = null;
                         });
                       },
                     )
                 ),
               ],
             ),
+            SizedBox(height: 10),
+
+            // контактное лицо
+            Container(
+                width: 300,
+                child: TextField(
+                  textAlign: TextAlign.center,
+                  decoration: InputDecoration(
+                    hintText: 'Контактное лицо',
+                    hintStyle: GoogleFonts.montserrat(
+                        textStyle: TextStyle(
+                            color: Colors.white.withOpacity(0.4),
+                            fontSize: 20
+                        )
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white, width: 3,
+                        ),
+                        borderRadius: BorderRadius.circular(32)
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.white, width: 3,
+                        ),
+                        borderRadius: BorderRadius.circular(32)
+                    ),
+                  ),
+                  style: GoogleFonts.montserrat(
+                      textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20
+                      )
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      if (value != '') {
+                        new_person = value;
+                      }
+                      else new_person = null;
+                    });
+                  },
+                )
+            ),
             Spacer(),
 
-            // Кнопки
+            //Кнопки
             InkWell(
               onTap: () async {
-                if (allNotNull) {
-                  await conn.execute('INSERT INTO public.type(name, conditions, rate, period, id) VALUES (\'$new_name\', \'$new_usl\', $new_rate, $new_period, ${countTypes+1})');
-                  Get.back();
-                }
+                setState((){
+                  new_name = new_name==null ? list_arg[1] : new_name;
+                  new_own = new_own==null ? list_arg[2] : new_own;
+                  new_address = new_address==null ? list_arg[3] : new_address;
+                  new_phone = new_phone==null ? list_arg[4] : new_phone;
+                  new_person = new_person==null ? list_arg[5] : new_person;
+                });
+                await PostgresClientUPDATE(index: list_arg[0], name: new_name!, own: new_own!, address: new_address!, phone: new_phone!, person: new_person!);
+                Get.back();
               },
               child: Container(
                 height: 80,
                 width: 300,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
-                    color: allNotNull ? Colors.white : Colors.white.withOpacity(0.5),
+                    color: NotNull ? Colors.white : Colors.white.withOpacity(0.5),
                     borderRadius: BorderRadius.circular(20)
                 ),
                 child: Text(
-                  'Добавить',
+                  'Сохранить',
                   style: GoogleFonts.montserrat(
                       textStyle: TextStyle(
                           color: Color(0xFF8292E2),
                           fontSize: 16,
                           fontWeight: FontWeight.w600
+
                       )
                   ),
                 ),

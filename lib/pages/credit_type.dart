@@ -134,7 +134,7 @@ class _CreditTypePageState extends State<CreditTypePage> {
                 Spacer(flex: 23,)
               ],
             ),
-            Divider(thickness: 3, color: Colors.white, indent: 370, endIndent: 370,),
+            Divider(thickness: 3, color: Colors.white, indent: 330, endIndent: 330,),
             Expanded(
                 child: Scrollbar(
                   thumbVisibility: true,
@@ -149,70 +149,90 @@ class _CreditTypePageState extends State<CreditTypePage> {
                           children: [
                             Row(
                               children: [
-                                Spacer(flex: 5,),
-                                Text('${elem[index][4]}',
-                                    style: GoogleFonts.montserrat(
-                                        textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal
-                                        )
-                                    )
+                                SizedBox(width: 390,),
+                                Container(
+                                  child: Text('${elem[index][4]}',
+                                      style: GoogleFonts.montserrat(
+                                          textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal
+                                          )
+                                      )
+                                  ),
+                                  width: 40,
+                                  alignment: Alignment.center,
                                 ),
-                                Spacer(flex: 2,),
-                                Text('${elem[index][0]}',
-                                    style: GoogleFonts.montserrat(
-                                        textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.normal
-                                        )
-                                    )
+                                SizedBox(width: 175,),
+                                Container(
+                                  child: Text('${elem[index][0]}',
+                                      style: GoogleFonts.montserrat(
+                                          textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal
+                                          )
+                                      )
+                                  ),
+                                  width: 150,
+                                  alignment: Alignment.center,
                                 ),
-                                Spacer(flex: 2,),
-                                Text('${elem[index][1]}',
-                                    style: GoogleFonts.montserrat(
-                                        textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight:
-                                            FontWeight.normal
-                                        )
-                                    )
+                                SizedBox(width: 130,),
+                                Container(
+                                  child: Text('${elem[index][1]}',
+                                      style: GoogleFonts.montserrat(
+                                          textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight:
+                                              FontWeight.normal
+                                          )
+                                      )
+                                  ),
+                                  width: 200,
+                                  alignment: Alignment.center,
                                 ),
-                                Spacer(flex: 3,),
-                                Text('${elem[index][2]}%',
-                                    style: GoogleFonts.montserrat(
-                                        textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight:
-                                            FontWeight.normal
-                                        )
-                                    )
+                                SizedBox(width: 145,),
+                                Container(
+                                  child: Text('${elem[index][2]}%',
+                                      style: GoogleFonts.montserrat(
+                                          textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight:
+                                              FontWeight.normal
+                                          )
+                                      )
+                                  ),
+                                  width: 50,
+                                  alignment: Alignment.center,
                                 ),
-                                Spacer(flex: 3,),
-                                Text('${elem[index][3]}',
-                                    style: GoogleFonts.montserrat(
-                                        textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight:
-                                            FontWeight.normal
-                                        )
-                                    )
+                                SizedBox(width: 205,),
+                                Container(
+                                  child: Text('${elem[index][3]}',
+                                      style: GoogleFonts.montserrat(
+                                          textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight:
+                                              FontWeight.normal
+                                          )
+                                      )
+                                  ),
+                                  width: 50,
+                                  alignment: Alignment.center,
                                 ),
-                                SizedBox(width: 100),
+                                SizedBox(width: 70),
                                 Material(
                                   color: Colors.transparent,
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(8),
                                     child: SvgPicture.asset('assets/icon/garbage.svg'),
                                     onTap: () async {
-                                      bool elementUsed = await PostgresCheck(type_index: index+1);
+                                      bool elementUsed = await PostgresCheck(table: 'type', type_index: elem[index][4]);
                                       print(elementUsed);
                                       if (!elementUsed) {
-                                        deleteElement(table: 'type', index: index + 1);
+                                        deleteElement(table: 'type', index: elem[index][4]);
                                         print('delete');
                                       }
                                       else {
@@ -234,13 +254,13 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(8),
                                     child: SvgPicture.asset('assets/icon/pen.svg'),
-                                    onTap: () => Get.toNamed('/edittype', arguments: [index+1, elem[index][0], elem[index][1], elem[index][2], elem[index][3]]),
+                                    onTap: () => Get.toNamed('/edittype', arguments: [elem[index][4], elem[index][0], elem[index][1], elem[index][2], elem[index][3]]),
                                   ),
                                 ),
                                 Spacer(flex: 4,),
                               ],
                             ),
-                            Divider(thickness: 1, color: Colors.white, indent: 370, endIndent: 370,)
+                            Divider(thickness: 1, color: Colors.white, indent: 330, endIndent: 330,)
                           ],
                         );
                       }

@@ -80,7 +80,9 @@ Widget CustomDrawer(int index, BuildContext context) {
             selected: index == 2,
             onTap: () async {
               Navigator.pop(context);
-              await Get.offNamed('/client');
+              Get.toNamed('/wait');
+              var arg = await PostgresSELECT(table: 'user_data');
+              Get.offNamed('/client', arguments: arg);
             },
           ),
           Spacer(flex: 5,),

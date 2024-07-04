@@ -27,7 +27,13 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
     });
   }
   void deleteElement({required String table, required int index}) async {
+    int indexCurClient = elem[index-1][2];
     await PostgresDELETE(table: 'credit_data', index: index);
+    await reconnecting();
+    bool isClient = await PostgresCheck(table: 'user_data', type_index: indexCurClient);
+    if (!isClient)
+      await PostgresDELETE(table: 'user_data', index: indexCurClient);
+
     reconnecting();
   }
 
@@ -139,18 +145,9 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                           children: [
                             Row(
                               children: [
-                                Spacer(flex: 5,),
-                                Text('${elem[index][3]}',
-                                  style: GoogleFonts.montserrat(
-                                      textStyle: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal
-                                      )
-                                  )
-                                ),
-                                Spacer(flex: 2,),
-                                Text('${elem[index][0]}',
+                                SizedBox(width: 470),
+                                Container(
+                                  child: Text('${elem[index][3]}',
                                     style: GoogleFonts.montserrat(
                                         textStyle: TextStyle(
                                             color: Colors.white,
@@ -158,37 +155,66 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                                             fontWeight: FontWeight.normal
                                         )
                                     )
-                                ),
-                                Spacer(flex: 2,),
-                                Text('${elem[index][1]}',
-                                    style: GoogleFonts.montserrat(
-                                        textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight:
-                                            FontWeight.normal
-                                        )
-                                    )
-                                ),
-                                Spacer(flex: 3,),
-                                Text('${elem[index][2]}',
-                                    style: GoogleFonts.montserrat(
-                                        textStyle: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 16,
-                                            fontWeight:
-                                            FontWeight.normal
-                                        )
-                                    )
-                                ),
-                                SizedBox(width: 100),
-                                Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: SvgPicture.asset('assets/icon/garbage.svg'),
-                                    onTap: () => deleteElement(table: 'credit_data', index: index+1),
                                   ),
+                                  width: 40,
+                                  alignment: Alignment.center,
+                                ),
+                                SizedBox(width: 200),
+                                Container(
+                                  child: Text('${elem[index][0]}',
+                                      style: GoogleFonts.montserrat(
+                                          textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.normal
+                                          )
+                                      )
+                                  ),
+                                  alignment: Alignment.center,
+                                  width: 200,
+                                ),
+                                SizedBox(width: 160),
+                                Container(
+                                  child: Text('${elem[index][1]}',
+                                      style: GoogleFonts.montserrat(
+                                          textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight:
+                                              FontWeight.normal
+                                          )
+                                      )
+                                  ),
+                                  width: 100,
+                                  alignment: Alignment.center,
+                                ),
+                                SizedBox(width: 230),
+                                Container(
+                                  child: Text('${elem[index][2]}',
+                                      style: GoogleFonts.montserrat(
+                                          textStyle: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 16,
+                                              fontWeight:
+                                              FontWeight.normal
+                                          )
+                                      )
+                                  ),
+                                  width: 50,
+                                  alignment: Alignment.center,
+                                ),
+                                SizedBox(width: 120),
+                                Container(
+                                  child: Material(
+                                    color: Colors.transparent,
+                                    child: InkWell(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: SvgPicture.asset('assets/icon/garbage.svg'),
+                                      onTap: () => deleteElement(table: 'credit_data', index: index+1),
+                                    ),
+                                  ),
+                                  alignment: Alignment.center,
+                                  width: 32,
                                 ),
                                 SizedBox(width: 12,),
                                 Material(
@@ -196,10 +222,9 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                                   child: InkWell(
                                     borderRadius: BorderRadius.circular(8),
                                     child: SvgPicture.asset('assets/icon/pen.svg'),
-                                    onTap: () => Get.toNamed('/editcredit', arguments: [index+1, elem[index][0], elem[index][1]]),
+                                    onTap: () => Get.toNamed('/editcredit', arguments: [elem[index][4], elem[index][0], elem[index][1]]),
                                   ),
                                 ),
-                                Spacer(flex: 4,),
                               ],
                             ),
                             Divider(thickness: 1, color: Colors.white, indent: 370, endIndent: 370,)
