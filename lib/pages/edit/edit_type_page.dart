@@ -64,6 +64,13 @@ class _EditTypePageState extends State<EditTypePage> {
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         hintText: 'Название',
+                        helperText: 'Текущее: ${list_arg[1]}',
+                        helperStyle: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white.withOpacity(0.4),
+                              fontSize: 12
+                          ),
+                        ),
                         hintStyle: GoogleFonts.montserrat(
                             textStyle: TextStyle(
                                 color: Colors.white.withOpacity(0.4),
@@ -104,6 +111,13 @@ class _EditTypePageState extends State<EditTypePage> {
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         hintText: 'Условия',
+                        helperText: 'Текущее: ${list_arg[2]}',
+                        helperStyle: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white.withOpacity(0.4),
+                              fontSize: 12
+                          ),
+                        ),
                         hintStyle: GoogleFonts.montserrat(
                             textStyle: TextStyle(
                                 color: Colors.white.withOpacity(0.4),
@@ -152,6 +166,13 @@ class _EditTypePageState extends State<EditTypePage> {
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         hintText: 'Ставка',
+                        helperText: 'Текущее: ${list_arg[3]}%',
+                        helperStyle: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white.withOpacity(0.4),
+                              fontSize: 12
+                          ),
+                        ),
                         hintStyle: GoogleFonts.montserrat(
                             textStyle: TextStyle(
                                 color: Colors.white.withOpacity(0.4),
@@ -194,6 +215,13 @@ class _EditTypePageState extends State<EditTypePage> {
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         hintText: 'Срок',
+                        helperText: 'Текущее: ${list_arg[4]} лет',
+                        helperStyle: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white.withOpacity(0.4),
+                              fontSize: 12
+                          ),
+                        ),
                         hintStyle: GoogleFonts.montserrat(
                             textStyle: TextStyle(
                                 color: Colors.white.withOpacity(0.4),

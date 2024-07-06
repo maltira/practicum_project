@@ -1,11 +1,8 @@
-import 'dart:async';
 import 'package:flutter/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:postgres/legacy.dart';
-import 'package:postgres/postgres.dart';
 
 import '../modules/database.dart';
 
@@ -64,7 +61,6 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -74,7 +70,29 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
         alignment: Alignment.center,
         child: Column(
           children: [
-            Spacer(flex: 3,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                InkWell(
+                  onTap: () => Get.defaultDialog(
+                    titleStyle: TextStyle(fontWeight: FontWeight.bold),
+                    title: 'Подсказки',
+                    middleText: '1. Клиент перестаёт таковым быть после того, как у него пропадают кредиты\n'
+                        '2. После добавления/редактирования элемента нужно вызвать \"Update the date\" \n',
+                  ),
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    margin: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(32)
+                    ),
+                    child: Icon(Icons.question_mark, color: Color(0xFF8FA0BF)),
+                  ),
+                ),
+              ],
+            ),
             SvgPicture.asset('assets/icon/EvrikaIcon.svg', width: 144, height: 100,),
             Spacer(flex: 2,),
             Text(
