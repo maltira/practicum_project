@@ -30,6 +30,7 @@ class _ClientPageState extends State<ClientPage> {
 
   @override
   Widget build(BuildContext context) {
+    double k = MediaQuery.of(context).size.width/1920;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -72,76 +73,100 @@ class _ClientPageState extends State<ClientPage> {
             // Таблица
             Row(
               children: [
-                SizedBox(width: 230,),
-                Text('Код клиента',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Код клиента',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 150*k,
                 ),
-                SizedBox(width: 125,),
-                Text('Название',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Название',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 280*k,
                 ),
-                SizedBox(width: 165,),
-                Text('Вид собственности',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Вид собственности',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 280*k,
                 ),
-                SizedBox(width: 140,),
-                Text('Адрес',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Адрес',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 250*k,
                 ),
-                SizedBox(width: 150,),
-                Text('Телефон',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Телефон',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 200*k,
                 ),
-                SizedBox(width: 150,),
-                Text('Контактное лицо',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Контактное лицо',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 250*k,
                 ),
-                Spacer(flex: 23,)
+                Spacer(),
               ],
             ),
-            Divider(thickness: 3, color: Colors.white, indent: 190, endIndent: 190),
+            Divider(thickness: 3, color: Colors.white, indent: 25, endIndent: 25),
             Expanded(
                 child: Scrollbar(
                   thumbVisibility: true,
@@ -156,7 +181,7 @@ class _ClientPageState extends State<ClientPage> {
                           children: [
                             Row(
                               children: [
-                                SizedBox(width: 260,),
+                                Spacer(),
                                 Container(
                                   child: Text('${elem[index][5]}',
                                       style: GoogleFonts.montserrat(
@@ -167,12 +192,12 @@ class _ClientPageState extends State<ClientPage> {
                                           )
                                       )
                                   ),
-                                  width: 40,
+                                  width: 150*k,
                                   alignment: Alignment.center,
                                 ),
-                                SizedBox(width: 85,),
+                                Spacer(),
                                 Container(
-                                  width: 240,
+                                  width: 280*k,
                                   child: Text('${elem[index][0]}',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
@@ -184,7 +209,7 @@ class _ClientPageState extends State<ClientPage> {
                                   ),
                                   alignment: Alignment.center,
                                 ),
-                                SizedBox(width: 75,),
+                                Spacer(),
                                 Container(
                                   child: Text('${elem[index][1]}',
                                       style: GoogleFonts.montserrat(
@@ -196,10 +221,10 @@ class _ClientPageState extends State<ClientPage> {
                                           )
                                       )
                                   ),
-                                  width: 200,
+                                  width: 280*k,
                                   alignment: Alignment.center,
                                 ),
-                                SizedBox(width: 65,),
+                                Spacer(),
                                 Container(
                                   child: Text('${elem[index][2]}',
                                       style: GoogleFonts.montserrat(
@@ -211,10 +236,10 @@ class _ClientPageState extends State<ClientPage> {
                                           )
                                       )
                                   ),
-                                  width: 180,
+                                  width: 250*k,
                                   alignment: Alignment.center,
                                 ),
-                                SizedBox(width: 25,),
+                                Spacer(),
                                 Container(
                                   child: Text('${elem[index][3]}',
                                       style: GoogleFonts.montserrat(
@@ -227,38 +252,40 @@ class _ClientPageState extends State<ClientPage> {
                                       )
                                   ),
                                   alignment: Alignment.center,
-                                  width: 200,
+                                  width: 200*k,
                                 ),
-                                SizedBox(width: 20,),
+                                Spacer(),
                                 Container(
-                                  child: Text('${elem[index][4]}',
-                                      style: GoogleFonts.montserrat(
-                                          textStyle: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight:
-                                              FontWeight.normal
+                                  child: Row(
+                                    children: [
+                                      Text('${elem[index][4]}',
+                                          style: GoogleFonts.montserrat(
+                                              textStyle: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontWeight:
+                                                  FontWeight.normal,
+                                              )
                                           )
-                                      )
+                                      ),
+                                      SizedBox(width: 60*k),
+                                      Material(
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: SvgPicture.asset('assets/icon/pen.svg'),
+                                          onTap: () => Get.toNamed('/editclient', arguments: [elem[index][5], elem[index][0], elem[index][1], elem[index][2], elem[index][3],  elem[index][4]]),
+                                        ),
+                                      ),
+                                    ],
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                   ),
-                                  width: 300,
-                                  alignment: Alignment.center,
+                                  width: 250*k,
                                 ),
-                                SizedBox(width: 45),
-                                Container(
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: SvgPicture.asset('assets/icon/pen.svg'),
-                                      onTap: () => Get.toNamed('/editclient', arguments: [elem[index][5], elem[index][0], elem[index][1], elem[index][2], elem[index][3],  elem[index][4]]),
-                                    ),
-                                  ),
-                                  width: 32,
-                                ),
+                                Spacer(),
                               ],
                             ),
-                            Divider(thickness: 1, color: Colors.white, indent: 190, endIndent: 190,)
+                            Divider(thickness: 1, color: Colors.white, indent: 25, endIndent: 25,)
                           ],
                         );
                       }

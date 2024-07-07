@@ -33,6 +33,7 @@ class _CreditTypePageState extends State<CreditTypePage> {
 
   @override
   Widget build(BuildContext context) {
+    double k = MediaQuery.of(context).size.width/1920;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -76,65 +77,85 @@ class _CreditTypePageState extends State<CreditTypePage> {
             // Таблица
             Row(
               children: [
-                Spacer(flex: 22,),
-                Text('Код вида',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Код вида',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 220*k,
                 ),
-                Spacer(flex: 11,),
-                Text('Название',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Название',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  width: 220*k,
+                  alignment: Alignment.center,
                 ),
-                Spacer(flex: 13,),
-                Text('Условия',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Условия',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 220*k,
                 ),
-                Spacer(flex: 12,),
-                Text('Ставка',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Ставка',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 220*k,
                 ),
-                Spacer(flex: 12,),
-                Text('Срок',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Срок',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 330*k,
                 ),
-                Spacer(flex: 23,)
+                Spacer(),
               ],
             ),
-            Divider(thickness: 3, color: Colors.white, indent: 330, endIndent: 330,),
+            Divider(thickness: 3, color: Colors.white, indent: 25, endIndent: 25,),
             Expanded(
                 child: Scrollbar(
                   thumbVisibility: true,
@@ -149,7 +170,7 @@ class _CreditTypePageState extends State<CreditTypePage> {
                           children: [
                             Row(
                               children: [
-                                SizedBox(width: 390,),
+                                Spacer(),
                                 Container(
                                   child: Text('${elem[index][4]}',
                                       style: GoogleFonts.montserrat(
@@ -160,10 +181,10 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                           )
                                       )
                                   ),
-                                  width: 40,
+                                  width: 220*k,
                                   alignment: Alignment.center,
                                 ),
-                                SizedBox(width: 175,),
+                                Spacer(),
                                 Container(
                                   child: Text('${elem[index][0]}',
                                       style: GoogleFonts.montserrat(
@@ -174,10 +195,10 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                           )
                                       )
                                   ),
-                                  width: 150,
+                                  width: 220*k,
                                   alignment: Alignment.center,
                                 ),
-                                SizedBox(width: 130,),
+                                Spacer(),
                                 Container(
                                   child: Text('${elem[index][1]}',
                                       style: GoogleFonts.montserrat(
@@ -189,10 +210,10 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                           )
                                       )
                                   ),
-                                  width: 200,
+                                  width: 220*k,
                                   alignment: Alignment.center,
                                 ),
-                                SizedBox(width: 145,),
+                                Spacer(),
                                 Container(
                                   child: Text('${elem[index][2]}%',
                                       style: GoogleFonts.montserrat(
@@ -204,63 +225,67 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                           )
                                       )
                                   ),
-                                  width: 50,
+                                  width: 220*k,
                                   alignment: Alignment.center,
                                 ),
-                                SizedBox(width: 205,),
+                                Spacer(),
                                 Container(
-                                  child: Text('${elem[index][3]}',
-                                      style: GoogleFonts.montserrat(
-                                          textStyle: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight:
-                                              FontWeight.normal
+                                  child: Row(
+                                    children: [
+                                      Text('${elem[index][3]}',
+                                          style: GoogleFonts.montserrat(
+                                              textStyle: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontWeight:
+                                                  FontWeight.normal
+                                              )
                                           )
-                                      )
+                                      ),
+                                      SizedBox(width: 80*k),
+                                      Material(
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: SvgPicture.asset('assets/icon/garbage.svg'),
+                                          onTap: () async {
+                                            bool elementUsed = await PostgresCheck(table: 'type', type_index: elem[index][4]);
+                                            print(elementUsed);
+                                            if (!elementUsed) {
+                                              deleteElement(table: 'type', index: elem[index][4]);
+                                              print('delete');
+                                            }
+                                            else {
+                                              print('can not delete');
+                                              Get.defaultDialog(
+                                                title: 'ERROR',
+                                                titleStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                                                middleText: 'Данный тип невозможно удалить,\nтак как он ещё используется',
+                                                middleTextStyle: TextStyle(color: Colors.white),
+                                                backgroundColor: Colors.red
+                                              );
+                                            }
+                                          }
+                                        ),
+                                      ),
+                                      SizedBox(width: 12*k,),
+                                      Material(
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: SvgPicture.asset('assets/icon/pen.svg'),
+                                          onTap: () => Get.toNamed('/edittype', arguments: [elem[index][4], elem[index][0], elem[index][1], elem[index][2], elem[index][3]]),
+                                        ),
+                                      ),
+                                    ],
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                   ),
-                                  width: 50,
-                                  alignment: Alignment.center,
+                                  width: 330*k,
                                 ),
-                                SizedBox(width: 70),
-                                Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: SvgPicture.asset('assets/icon/garbage.svg'),
-                                    onTap: () async {
-                                      bool elementUsed = await PostgresCheck(table: 'type', type_index: elem[index][4]);
-                                      print(elementUsed);
-                                      if (!elementUsed) {
-                                        deleteElement(table: 'type', index: elem[index][4]);
-                                        print('delete');
-                                      }
-                                      else {
-                                        print('can not delete');
-                                        Get.defaultDialog(
-                                          title: 'ERROR',
-                                          titleStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                                          middleText: 'Данный тип невозможно удалить,\nтак как он ещё используется',
-                                          middleTextStyle: TextStyle(color: Colors.white),
-                                          backgroundColor: Colors.red
-                                        );
-                                      }
-                                    }
-                                  ),
-                                ),
-                                SizedBox(width: 12,),
-                                Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: SvgPicture.asset('assets/icon/pen.svg'),
-                                    onTap: () => Get.toNamed('/edittype', arguments: [elem[index][4], elem[index][0], elem[index][1], elem[index][2], elem[index][3]]),
-                                  ),
-                                ),
-                                Spacer(flex: 4,),
+                                Spacer(),
                               ],
                             ),
-                            Divider(thickness: 1, color: Colors.white, indent: 330, endIndent: 330,)
+                            Divider(thickness: 1, color: Colors.white, indent: 25, endIndent: 25,)
                           ],
                         );
                       }

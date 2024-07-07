@@ -39,6 +39,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
 
   @override
   Widget build(BuildContext context) {
+    double k = MediaQuery.of(context).size.width/1920;
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -83,54 +84,71 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
             // Таблица
             Row(
               children: [
-                Spacer(flex: 22,),
-                Text('Тип кредита',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Тип кредита',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 300*k,
                 ),
-                Spacer(flex: 11,),
-                Text('Сумма',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Сумма',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 300*k,
                 ),
-                Spacer(flex: 13,),
-                Text('Дата',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('Дата',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+                  alignment: Alignment.center,
+                  width: 300*k,
                 ),
-                Spacer(flex: 12,),
-                Text('ID клиента',
-                    style: GoogleFonts.montserrat(
-                        textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontWeight:
-                            FontWeight.w600
-                        )
-                    )
+                Spacer(),
+                Container(
+                  child: Text('ID клиента',
+                      style: GoogleFonts.montserrat(
+                          textStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight:
+                              FontWeight.w600
+                          )
+                      )
+                  ),
+
+                  alignment: Alignment.center,
+                  width: 300*k,
                 ),
-                Spacer(flex: 23,)
+                Spacer(),
               ],
             ),
-            Divider(thickness: 3, color: Colors.white, indent: 370, endIndent: 370,),
+            Divider(thickness: 3, color: Colors.white, indent: 80*k, endIndent: 80*k,),
             Expanded(
                 child: Scrollbar(
                   thumbVisibility: true,
@@ -145,7 +163,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                           children: [
                             Row(
                               children: [
-                                SizedBox(width: 470),
+                                Spacer(),
                                 Container(
                                   child: Text('${elem[index][3]}',
                                     style: GoogleFonts.montserrat(
@@ -156,10 +174,10 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                                         )
                                     )
                                   ),
-                                  width: 40,
                                   alignment: Alignment.center,
+                                  width: 300*k,
                                 ),
-                                SizedBox(width: 200),
+                                Spacer(),
                                 Container(
                                   child: Text('${elem[index][0]}',
                                       style: GoogleFonts.montserrat(
@@ -171,9 +189,9 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                                       )
                                   ),
                                   alignment: Alignment.center,
-                                  width: 200,
+                                  width: 300*k,
                                 ),
-                                SizedBox(width: 160),
+                                Spacer(),
                                 Container(
                                   child: Text('${elem[index][1]}',
                                       style: GoogleFonts.montserrat(
@@ -185,49 +203,50 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                                           )
                                       )
                                   ),
-                                  width: 100,
                                   alignment: Alignment.center,
+                                  width: 300*k,
                                 ),
-                                SizedBox(width: 230),
+                                Spacer(),
                                 Container(
-                                  child: Text('${elem[index][2]}',
-                                      style: GoogleFonts.montserrat(
-                                          textStyle: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 16,
-                                              fontWeight:
-                                              FontWeight.normal
+                                  child: Row(
+                                    children: [
+                                      Text('${elem[index][2]}',
+                                          style: GoogleFonts.montserrat(
+                                              textStyle: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 16,
+                                                  fontWeight:
+                                                  FontWeight.normal
+                                              )
                                           )
-                                      )
+                                      ),
+                                      SizedBox(width: 80*k),
+                                      Material(
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: SvgPicture.asset('assets/icon/garbage.svg'),
+                                          onTap: () => deleteElement(table: 'credit_data', index: index+1),
+                                        ),
+                                      ),
+                                      SizedBox(width: 12*k),
+                                      Material(
+                                        color: Colors.transparent,
+                                        child: InkWell(
+                                          borderRadius: BorderRadius.circular(8),
+                                          child: SvgPicture.asset('assets/icon/pen.svg'),
+                                          onTap: () => Get.toNamed('/editcredit', arguments: [elem[index][4], elem[index][0], elem[index][1]]),
+                                        ),
+                                      ),
+                                    ],
+                                    mainAxisAlignment: MainAxisAlignment.end,
                                   ),
-                                  width: 50,
-                                  alignment: Alignment.center,
+                                  width: 300*k,
                                 ),
-                                SizedBox(width: 120),
-                                Container(
-                                  child: Material(
-                                    color: Colors.transparent,
-                                    child: InkWell(
-                                      borderRadius: BorderRadius.circular(8),
-                                      child: SvgPicture.asset('assets/icon/garbage.svg'),
-                                      onTap: () => deleteElement(table: 'credit_data', index: index+1),
-                                    ),
-                                  ),
-                                  alignment: Alignment.center,
-                                  width: 32,
-                                ),
-                                SizedBox(width: 12,),
-                                Material(
-                                  color: Colors.transparent,
-                                  child: InkWell(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: SvgPicture.asset('assets/icon/pen.svg'),
-                                    onTap: () => Get.toNamed('/editcredit', arguments: [elem[index][4], elem[index][0], elem[index][1]]),
-                                  ),
-                                ),
+                                Spacer(),
                               ],
                             ),
-                            Divider(thickness: 1, color: Colors.white, indent: 370, endIndent: 370,)
+                            Divider(thickness: 1, color: Colors.white, indent: 80*k, endIndent: 80*k,)
                           ],
                         );
                       }

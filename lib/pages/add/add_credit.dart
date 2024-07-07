@@ -278,7 +278,7 @@ class _AddNewCreditState extends State<AddNewCredit> {
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         hintText: 'Контактное лицо',
-                        helperText: 'Полностью ФИО',
+                        helperText: 'Имя клиента',
                         helperStyle: GoogleFonts.montserrat(
                           textStyle: TextStyle(
                               color: Colors.white.withOpacity(0.4),
