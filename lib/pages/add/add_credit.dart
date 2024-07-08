@@ -9,6 +9,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:postgres/postgres.dart';
 import 'package:practicum_project/modules/database.dart';
 
+import '../../modules/supabase_bd.dart';
+
 class AddNewCredit extends StatefulWidget {
   const AddNewCredit({super.key});
 
@@ -24,10 +26,11 @@ class _AddNewCreditState extends State<AddNewCredit> {
   List perm = [];
 
   void getTypes() async {
-    perm = await PostgresSELECT(table: 'type');
+    perm = await supabaseSELECT(table: 'credit_type');
     for (int i = 0; i<countTypes;i++){
-      allTypeCredits.add(perm[i][4].toString());
+      allTypeCredits.add(perm[i]['id'].toString());
     }
+    print(allTypeCredits);
   }
   @override
   void initState() {
@@ -618,10 +621,9 @@ class _AddNewCreditState extends State<AddNewCredit> {
                   setState(() {
                     new_date = "$new_day.$new_month.$new_year";
                   });
-                  print(await MaxID(table: 'user_data') + 1);
-                  print(countCredits);
-                  await conn.execute('INSERT INTO public.user_data(company_name, type_of_ownership, address, phone_number, contact_person, id) VALUES (\'$new_name\', \'$new_own\', \'$new_address\', \'$new_phone\', \'$new_person\', ${await MaxID(table: 'user_data') + 1})');
-                  await conn.execute('INSERT INTO public.credit_data(summ, date, user_id, type_id, id) VALUES ($new_sum, \'$new_date\', ${await MaxID(table: 'user_data')+1}, ${int.parse(typeCredit)}, ${countCredits+1})');
+                  await supabase.from('client_data').insert({'id': await MaxID(table: 'client_data') + 1, 'company_name': new_name, 'type_of_ownership': new_own, 'address': new_address, 'phone_number': new_phone, 'contact_person': new_person});
+                  await supabase.from('credit_data').insert({'id': await MaxID(table: 'credit_data') + 1, 'sum': new_sum, 'date': new_date, 'user_id': await MaxID(table: 'client_data') + 1, 'type_id': int.parse(typeCredit)});
+
                   Get.back();
                 }
               },

@@ -7,6 +7,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:practicum_project/modules/custom_drawer.dart';
 import 'package:practicum_project/modules/database.dart';
 
+import '../modules/supabase_bd.dart';
+
 class ClientPage extends StatefulWidget {
   const ClientPage({super.key});
 
@@ -21,8 +23,8 @@ class _ClientPageState extends State<ClientPage> {
 
 
   Future reconnecting() async{
-    await requestPostgres();
-    var newE = await PostgresSELECT(table: 'user_data');
+    await requestSupabase();
+    var newE = await supabaseSELECT(table: 'client_data');
     setState((){
       elem = newE;
     });
@@ -183,7 +185,7 @@ class _ClientPageState extends State<ClientPage> {
                               children: [
                                 Spacer(),
                                 Container(
-                                  child: Text('${elem[index][5]}',
+                                  child: Text('${elem[index]['id']}',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -198,7 +200,7 @@ class _ClientPageState extends State<ClientPage> {
                                 Spacer(),
                                 Container(
                                   width: 280*k,
-                                  child: Text('${elem[index][0]}',
+                                  child: Text('${elem[index]['company_name']}',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -211,7 +213,7 @@ class _ClientPageState extends State<ClientPage> {
                                 ),
                                 Spacer(),
                                 Container(
-                                  child: Text('${elem[index][1]}',
+                                  child: Text('${elem[index]['type_of_ownership']}',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -226,7 +228,7 @@ class _ClientPageState extends State<ClientPage> {
                                 ),
                                 Spacer(),
                                 Container(
-                                  child: Text('${elem[index][2]}',
+                                  child: Text('${elem[index]['address']}',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -241,7 +243,7 @@ class _ClientPageState extends State<ClientPage> {
                                 ),
                                 Spacer(),
                                 Container(
-                                  child: Text('${elem[index][3]}',
+                                  child: Text('${elem[index]['phone_number']}',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -258,7 +260,7 @@ class _ClientPageState extends State<ClientPage> {
                                 Container(
                                   child: Row(
                                     children: [
-                                      Text('${elem[index][4]}',
+                                      Text('${elem[index]['contact_person']}',
                                           style: GoogleFonts.montserrat(
                                               textStyle: TextStyle(
                                                   color: Colors.white,
@@ -274,7 +276,7 @@ class _ClientPageState extends State<ClientPage> {
                                         child: InkWell(
                                           borderRadius: BorderRadius.circular(8),
                                           child: SvgPicture.asset('assets/icon/pen.svg'),
-                                          onTap: () => Get.toNamed('/editclient', arguments: [elem[index][5], elem[index][0], elem[index][1], elem[index][2], elem[index][3],  elem[index][4]]),
+                                          onTap: () => Get.toNamed('/editclient', arguments: [elem[index]['id'], elem[index]['company_name'], elem[index]['type_of_ownership'], elem[index]['address'], elem[index]['phone_number'],  elem[index]['contact_person']]),
                                         ),
                                       ),
                                     ],

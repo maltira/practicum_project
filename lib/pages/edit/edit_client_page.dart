@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../modules/database.dart';
+import '../../modules/supabase_bd.dart';
 
 class EditClientPage extends StatefulWidget {
   const EditClientPage({super.key});
@@ -287,7 +288,7 @@ class _EditClientPageState extends State<EditClientPage> {
                   new_phone = new_phone==null ? list_arg[4] : new_phone;
                   new_person = new_person==null ? list_arg[5] : new_person;
                 });
-                await PostgresClientUPDATE(index: list_arg[0], name: new_name!, own: new_own!, address: new_address!, phone: new_phone!, person: new_person!);
+                await supabaseClientUPDATE(index: list_arg[0], name: new_name!, own: new_own!, address: new_address!, phone: new_phone!, person: new_person!);
                 Get.back();
               },
               child: Container(

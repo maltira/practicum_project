@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:practicum_project/modules/supabase_bd.dart';
 
 import 'database.dart';
 
@@ -39,7 +40,7 @@ Widget CustomDrawer(int index, BuildContext context) {
             onTap: () async{
               Navigator.pop(context);
               Get.toNamed('/wait');
-              var arg = await PostgresSELECT(table: 'credit_data');
+              var arg = await supabaseSELECT(table: 'credit_data');
               Get.offNamed('/credit', arguments: arg);
             },
           ),
@@ -60,7 +61,7 @@ Widget CustomDrawer(int index, BuildContext context) {
             onTap: () async{
               Navigator.pop(context);
               Get.toNamed('/wait');
-              var arg = await PostgresSELECT(table: 'type');
+              var arg = await supabaseSELECT(table: 'credit_type');
               Get.offNamed('/creditType', arguments: arg);
             },
           ),
@@ -81,7 +82,7 @@ Widget CustomDrawer(int index, BuildContext context) {
             onTap: () async {
               Navigator.pop(context);
               Get.toNamed('/wait');
-              var arg = await PostgresSELECT(table: 'user_data');
+              var arg = await supabaseSELECT(table: 'client_data');
               Get.offNamed('/client', arguments: arg);
             },
           ),

@@ -5,6 +5,8 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:practicum_project/modules/database.dart';
 
+import '../../modules/supabase_bd.dart';
+
 class EditELement extends StatefulWidget {
   const EditELement({super.key});
 
@@ -19,6 +21,7 @@ class _EditELementState extends State<EditELement> {
   @override
   Widget build(BuildContext context) {
     bool DateNotNull = new_day!=null && new_month!=null && new_year!=null;
+    print(list_arg);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(
@@ -72,7 +75,7 @@ class _EditELementState extends State<EditELement> {
                       maxLength: 10,
                       textAlign: TextAlign.center,
                       decoration: InputDecoration(
-                        hintText: list_arg[1],
+                        hintText: list_arg[1].toString(),
                         helperText: 'Введите любое число',
                         helperMaxLines: 2,
                         helperStyle: GoogleFonts.montserrat(
@@ -310,12 +313,13 @@ class _EditELementState extends State<EditELement> {
               onTap: () async {
                 if (DateNotNull || new_sum != null) {
                   setState(() {
-                    new_sum = (new_sum == null) ? list_arg[1] : new_sum;
+                    new_sum = (new_sum == null) ? list_arg[1].toString() : new_sum;
                     if (DateNotNull)
                       new_date = '$new_day.$new_month.$new_year';
                     else new_date = list_arg[2];
                   });
-                  await PostgresCreditUPDATE(index: list_arg[0], new_sum: int.parse(new_sum!), new_date: new_date!);
+                  print('here');
+                  await supabaseCreditUPDATE(index: list_arg[0], new_sum: int.parse(new_sum!), new_date: new_date!);
                   Get.back();
                 }
               },

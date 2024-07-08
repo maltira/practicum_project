@@ -7,6 +7,8 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:practicum_project/modules/database.dart';
 
+import '../../modules/supabase_bd.dart';
+
 class EditTypePage extends StatefulWidget {
   const EditTypePage({super.key});
 
@@ -272,7 +274,7 @@ class _EditTypePageState extends State<EditTypePage> {
                   new_period = new_period==null ? list_arg[4].toString() : new_period;
                 });
                 print(list_arg[0]);
-                await PostgresTypeUPDATE(index: list_arg[0], name: new_name!, usl: new_usl!, rate: int.parse(new_rate!), period: int.parse(new_period!));
+                await supabaseTypeUPDATE(index: list_arg[0], name: new_name!, usl: new_usl!, rate: int.parse(new_rate!), period: int.parse(new_period!));
                 Get.back();
               },
               child: Container(

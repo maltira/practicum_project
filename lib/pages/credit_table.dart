@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:practicum_project/modules/custom_drawer.dart';
+import 'package:practicum_project/modules/supabase_bd.dart';
 
 import '../modules/database.dart';
 
@@ -20,20 +21,19 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
   final ScrollController _theScrollController = ScrollController();
 
   Future reconnecting() async{
-    await requestPostgres();
-    var newE = await PostgresSELECT(table: 'credit_data');
+    await requestSupabase();
+    var newE = await supabaseSELECT(table: 'credit_data');
     setState((){
         elem = newE;
     });
   }
   void deleteElement({required String table, required int index}) async {
     int indexCurClient = elem[index-1][2];
-    await PostgresDELETE(table: 'credit_data', index: index);
+    await supabaseDELETE(table: 'credit_data', index: index);
     await reconnecting();
-    bool isClient = await PostgresCheck(table: 'user_data', type_index: indexCurClient);
+    bool isClient = await supabaseCHECK(table: 'user_data', type_index: indexCurClient);
     if (!isClient)
-      await PostgresDELETE(table: 'user_data', index: indexCurClient);
-
+      await supabaseDELETE(table: 'user_data', index: indexCurClient);
     reconnecting();
   }
 
@@ -165,7 +165,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                               children: [
                                 Spacer(),
                                 Container(
-                                  child: Text('${elem[index][3]}',
+                                  child: Text('${elem[index]['type_id']}',
                                     style: GoogleFonts.montserrat(
                                         textStyle: TextStyle(
                                             color: Colors.white,
@@ -179,7 +179,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                                 ),
                                 Spacer(),
                                 Container(
-                                  child: Text('${elem[index][0]}',
+                                  child: Text('${elem[index]['sum']}',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -193,7 +193,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                                 ),
                                 Spacer(),
                                 Container(
-                                  child: Text('${elem[index][1]}',
+                                  child: Text('${elem[index]['date']}',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -210,7 +210,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                                 Container(
                                   child: Row(
                                     children: [
-                                      Text('${elem[index][2]}',
+                                      Text('${elem[index]['user_id']}',
                                           style: GoogleFonts.montserrat(
                                               textStyle: TextStyle(
                                                   color: Colors.white,
@@ -235,7 +235,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                                         child: InkWell(
                                           borderRadius: BorderRadius.circular(8),
                                           child: SvgPicture.asset('assets/icon/pen.svg'),
-                                          onTap: () => Get.toNamed('/editcredit', arguments: [elem[index][4], elem[index][0], elem[index][1]]),
+                                          onTap: () => Get.toNamed('/editcredit', arguments: [elem[index]['id'], elem[index]['sum'], elem[index]['date']]),
                                         ),
                                       ),
                                     ],

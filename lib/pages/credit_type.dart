@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:practicum_project/modules/database.dart';
 
 import '../modules/custom_drawer.dart';
+import '../modules/supabase_bd.dart';
 
 class CreditTypePage extends StatefulWidget {
   const CreditTypePage({super.key});
@@ -20,14 +21,14 @@ class _CreditTypePageState extends State<CreditTypePage> {
   var elem = Get.arguments;
 
   Future reconnecting() async{
-    await requestPostgres();
-    var newE = await PostgresSELECT(table: 'type');
+    await requestSupabase();
+    var newE = await supabaseSELECT(table: 'credit_type');
     setState((){
       elem = newE;
     });
   }
   void deleteElement({required String table, required int index}) async {
-    await PostgresDELETE(table: 'type', index: index);
+    await supabaseDELETE(table: 'credit_type', index: index);
     reconnecting();
   }
 
@@ -172,7 +173,7 @@ class _CreditTypePageState extends State<CreditTypePage> {
                               children: [
                                 Spacer(),
                                 Container(
-                                  child: Text('${elem[index][4]}',
+                                  child: Text('${elem[index]['id']}',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -186,7 +187,7 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                 ),
                                 Spacer(),
                                 Container(
-                                  child: Text('${elem[index][0]}',
+                                  child: Text('${elem[index]['name']}',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -200,7 +201,7 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                 ),
                                 Spacer(),
                                 Container(
-                                  child: Text('${elem[index][1]}',
+                                  child: Text('${elem[index]['conditions']}',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -215,7 +216,7 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                 ),
                                 Spacer(),
                                 Container(
-                                  child: Text('${elem[index][2]}%',
+                                  child: Text('${elem[index]['rate']}%',
                                       style: GoogleFonts.montserrat(
                                           textStyle: TextStyle(
                                               color: Colors.white,
@@ -232,7 +233,7 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                 Container(
                                   child: Row(
                                     children: [
-                                      Text('${elem[index][3]}',
+                                      Text('${elem[index]['period']}',
                                           style: GoogleFonts.montserrat(
                                               textStyle: TextStyle(
                                                   color: Colors.white,
@@ -249,10 +250,11 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                           borderRadius: BorderRadius.circular(8),
                                           child: SvgPicture.asset('assets/icon/garbage.svg'),
                                           onTap: () async {
-                                            bool elementUsed = await PostgresCheck(table: 'type', type_index: elem[index][4]);
+                                            print(elem[index]['id']);
+                                            bool elementUsed = await supabaseCHECK(table: 'credit_type', type_index: elem[index]['id']);
                                             print(elementUsed);
                                             if (!elementUsed) {
-                                              deleteElement(table: 'type', index: elem[index][4]);
+                                              deleteElement(table: 'credit_type', index: elem[index]['id']);
                                               print('delete');
                                             }
                                             else {
@@ -274,7 +276,7 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                         child: InkWell(
                                           borderRadius: BorderRadius.circular(8),
                                           child: SvgPicture.asset('assets/icon/pen.svg'),
-                                          onTap: () => Get.toNamed('/edittype', arguments: [elem[index][4], elem[index][0], elem[index][1], elem[index][2], elem[index][3]]),
+                                          onTap: () => Get.toNamed('/edittype', arguments: [elem[index]['id'], elem[index]['name'], elem[index]['conditions'], elem[index]['rate'], elem[index]['period']]),
                                         ),
                                       ),
                                     ],
@@ -296,7 +298,7 @@ class _CreditTypePageState extends State<CreditTypePage> {
             //Кнопки
             SizedBox(height: 100),
             InkWell(
-              onTap: (){Get.toNamed('/newtype');},
+              onTap: () => Get.toNamed('/newtype'),
               child: Container(
                 width: 160,
                 height: 60,

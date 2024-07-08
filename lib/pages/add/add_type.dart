@@ -5,6 +5,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../modules/database.dart';
+import '../../modules/supabase_bd.dart';
 
 class AddNewType extends StatefulWidget {
   const AddNewType({super.key});
@@ -227,7 +228,8 @@ class _AddNewTypeState extends State<AddNewType> {
             InkWell(
               onTap: () async {
                 if (allNotNull) {
-                  await conn.execute('INSERT INTO public.type(name, conditions, rate, period, id) VALUES (\'$new_name\', \'$new_usl\', $new_rate, $new_period, ${await MaxID(table: 'type') + 1})');
+                  await supabase.from('credit_type').insert({'id': await MaxID(table: 'credit_type')+1,'name': new_name, 'conditions':new_usl, 'rate':new_rate, 'period': new_period});
+                  print('done');
                   Get.back();
                 }
               },
