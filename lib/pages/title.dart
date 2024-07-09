@@ -79,7 +79,8 @@ class _TitlePageState extends State<TitlePage> with SingleTickerProviderStateMix
                     titleStyle: TextStyle(fontWeight: FontWeight.bold),
                     title: 'Подсказки',
                     middleText: '1. Клиент перестаёт таковым быть после того, как у него пропадают кредиты\n'
-                        '2. После добавления/редактирования элемента нужно вызвать \"Update the date\" \n',
+                        '2. После добавления/редактирования элемента нужно вызвать \"Update the date\" \n'
+                        '3. ВАЖНО! Для корректной работы не изменяйне масштаб окна, оставьте его полноэкранным',
                   ),
                   child: Container(
                     width: 50,

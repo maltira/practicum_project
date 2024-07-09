@@ -6,7 +6,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:practicum_project/modules/custom_drawer.dart';
 import 'package:practicum_project/modules/supabase_bd.dart';
 
-import '../modules/database.dart';
 
 
 class CreditTablePage extends StatefulWidget {

@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:practicum_project/modules/database.dart';
-
 import '../../modules/supabase_bd.dart';
 
 class EditELement extends StatefulWidget {

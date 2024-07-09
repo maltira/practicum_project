@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:practicum_project/modules/custom_drawer.dart';
-import 'package:practicum_project/modules/database.dart';
 
 import '../modules/supabase_bd.dart';
 
