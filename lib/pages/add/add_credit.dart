@@ -22,13 +22,13 @@ class _AddNewCreditState extends State<AddNewCredit> {
   String? new_name, new_own, new_address, new_phone, new_person;
   String? new_sum, new_day, new_month, new_year, new_date;
   var typeCredit = 'Вид кредита';
-  List<String> allTypeCredits = [];
+  List allTypeCredits = [];
   List perm = [];
 
   void getTypes() async {
     perm = await supabaseSELECT(table: 'credit_type');
     for (int i = 0; i<countTypes;i++){
-      allTypeCredits.add(perm[i]['id'].toString());
+      allTypeCredits.add([perm[i]['id'].toString(), perm[i]['name']]);
     }
     print(allTypeCredits);
   }
@@ -411,11 +411,10 @@ class _AddNewCreditState extends State<AddNewCredit> {
                           onSelected: (value){
                             setState(() {
                               typeCredit = value!;
-                              print(typeCredit);
                             });
                           },
                           dropdownMenuEntries: allTypeCredits.map((item) {
-                            return DropdownMenuEntry(value: item, label: item);
+                            return DropdownMenuEntry(value: item[0], label: '${item[0]} - ${item[1]}');
                           }).toList()
                         ),
                       ),
@@ -621,8 +620,9 @@ class _AddNewCreditState extends State<AddNewCredit> {
                   setState(() {
                     new_date = "$new_day.$new_month.$new_year";
                   });
-                  await supabase.from('client_data').insert({'id': await MaxID(table: 'client_data') + 1, 'company_name': new_name, 'type_of_ownership': new_own, 'address': new_address, 'phone_number': new_phone, 'contact_person': new_person});
-                  await supabase.from('credit_data').insert({'id': await MaxID(table: 'credit_data') + 1, 'sum': new_sum, 'date': new_date, 'user_id': await MaxID(table: 'client_data') + 1, 'type_id': int.parse(typeCredit)});
+                  int ind = await FreeID(table: 'client_data');
+                  await supabase.from('client_data').insert({'id': ind, 'company_name': new_name, 'type_of_ownership': new_own, 'address': new_address, 'phone_number': new_phone, 'contact_person': new_person});
+                  await supabase.from('credit_data').insert({'id': countCredits+1, 'sum': new_sum, 'date': new_date, 'user_id': ind, 'type_id': int.parse(typeCredit)});
 
                   Get.back();
                 }

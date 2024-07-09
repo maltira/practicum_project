@@ -228,8 +228,7 @@ class _AddNewTypeState extends State<AddNewType> {
             InkWell(
               onTap: () async {
                 if (allNotNull) {
-                  await supabase.from('credit_type').insert({'id': await MaxID(table: 'credit_type')+1,'name': new_name, 'conditions':new_usl, 'rate':new_rate, 'period': new_period});
-                  print('done');
+                  await supabase.from('credit_type').insert({'id': await FreeID(table: 'credit_type'),'name': new_name, 'conditions':new_usl, 'rate':new_rate, 'period': new_period});
                   Get.back();
                 }
               },

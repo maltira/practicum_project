@@ -28,12 +28,14 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
     });
   }
   void deleteElement({required String table, required int index}) async {
-    int indexCurClient = elem[index-1][2];
+    var indexCurClient = await supabase.from('credit_data').select('user_id').eq('id', index);
+    indexCurClient = indexCurClient[0]['user_id'];
+
     await supabaseDELETE(table: 'credit_data', index: index);
     await reconnecting();
-    bool isClient = await supabaseCHECK(table: 'user_data', type_index: indexCurClient);
+    bool isClient = await supabaseCHECK(table: 'client_data', type_index: indexCurClient);
     if (!isClient)
-      await supabaseDELETE(table: 'user_data', index: indexCurClient);
+      await supabaseDELETE(table: 'client_data', index: indexCurClient);
     reconnecting();
   }
 
@@ -79,7 +81,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                 ),
               ),
             ),
-            SizedBox(height: 40,),
+            SizedBox(height: 20,),
 
             // Таблица
             Row(
@@ -226,7 +228,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
                                         child: InkWell(
                                           borderRadius: BorderRadius.circular(8),
                                           child: SvgPicture.asset('assets/icon/garbage.svg'),
-                                          onTap: () => deleteElement(table: 'credit_data', index: index+1),
+                                          onTap: () => deleteElement(table: 'credit_data', index: elem[index]['id']),
                                         ),
                                       ),
                                       SizedBox(width: 12*k),
@@ -257,7 +259,7 @@ class _CreditTablePage extends State<CreditTablePage> with SingleTickerProviderS
 
             // Кнопки
             InkWell(
-              onTap: (){Get.toNamed('/newcredit');},
+              onTap: () => Get.toNamed('/newcredit'),
               child: Container(
                 width: 160,
                 height: 60,

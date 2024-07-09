@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:practicum_project/modules/search_page.dart';
 import 'package:practicum_project/modules/supabase_bd.dart';
 import 'package:practicum_project/modules/waiting.dart';
 import 'package:practicum_project/pages/add/add_credit.dart';

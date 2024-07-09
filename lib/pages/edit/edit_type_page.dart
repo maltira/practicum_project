@@ -273,7 +273,6 @@ class _EditTypePageState extends State<EditTypePage> {
                   new_rate = new_rate==null ? list_arg[3].toString() : new_rate;
                   new_period = new_period==null ? list_arg[4].toString() : new_period;
                 });
-                print(list_arg[0]);
                 await supabaseTypeUPDATE(index: list_arg[0], name: new_name!, usl: new_usl!, rate: int.parse(new_rate!), period: int.parse(new_period!));
                 Get.back();
               },

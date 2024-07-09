@@ -21,7 +21,6 @@ class _EditELementState extends State<EditELement> {
   @override
   Widget build(BuildContext context) {
     bool DateNotNull = new_day!=null && new_month!=null && new_year!=null;
-    print(list_arg);
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(

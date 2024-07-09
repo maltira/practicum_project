@@ -250,15 +250,11 @@ class _CreditTypePageState extends State<CreditTypePage> {
                                           borderRadius: BorderRadius.circular(8),
                                           child: SvgPicture.asset('assets/icon/garbage.svg'),
                                           onTap: () async {
-                                            print(elem[index]['id']);
                                             bool elementUsed = await supabaseCHECK(table: 'credit_type', type_index: elem[index]['id']);
-                                            print(elementUsed);
                                             if (!elementUsed) {
                                               deleteElement(table: 'credit_type', index: elem[index]['id']);
-                                              print('delete');
                                             }
                                             else {
-                                              print('can not delete');
                                               Get.defaultDialog(
                                                 title: 'ERROR',
                                                 titleStyle: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
